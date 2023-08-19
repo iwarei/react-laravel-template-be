@@ -30,6 +30,7 @@ Route::middleware('guest')->group(function () {
 });
 
 Route::middleware('auth')->group(function () {
+    Route::post('/user', [Auth\AuthenticatedSessionController::class, 'show']);
     Route::get('/verify-email/{id}/{hash}', Auth\VerifyEmailController::class)
                     ->middleware(['signed', 'throttle:6,1'])
                     ->name('verification.verify');
