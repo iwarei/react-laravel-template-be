@@ -22,12 +22,10 @@ Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
 });
 
 // 認証関連(ログイン前)
-Route::middleware('guest')->group(function () {
-    Route::post('/register', [Auth\RegisteredUserController::class, 'store'])->name('register');
-    Route::post('/login', [Auth\AuthenticatedSessionController::class, 'store'])->name('login');
-    Route::post('/forgot-password', [Auth\PasswordResetLinkController::class, 'store'])->name('password.email');
-    Route::post('/reset-password', [Auth\NewPasswordController::class, 'store'])->name('password.store');
-});
+Route::post('/register', [Auth\RegisteredUserController::class, 'store'])->name('register');
+Route::post('/login', [Auth\AuthenticatedSessionController::class, 'store'])->name('login');
+Route::post('/forgot-password', [Auth\PasswordResetLinkController::class, 'store'])->name('password.email');
+Route::post('/reset-password', [Auth\NewPasswordController::class, 'store'])->name('password.store');
 
 Route::middleware('auth')->group(function () {
     Route::post('/user', [Auth\AuthenticatedSessionController::class, 'show']);
