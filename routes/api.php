@@ -28,7 +28,6 @@ Route::post('/forgot-password', [Auth\PasswordResetLinkController::class, 'store
 Route::post('/reset-password', [Auth\NewPasswordController::class, 'store'])->name('password.store');
 
 Route::middleware('auth')->group(function () {
-    Route::post('/user', [Auth\AuthenticatedSessionController::class, 'show']);
     Route::get('/verify-email/{id}/{hash}', Auth\VerifyEmailController::class)
                     ->middleware(['signed', 'throttle:6,1'])
                     ->name('verification.verify');

@@ -21,23 +21,6 @@ class AuthenticatedSessionController extends Controller
 
         return response()->noContent();
     }
-    
-    // ユーザ情報取得用
-    public function show(Request $request)
-    {
-        $user = $request->user();
-
-        if ($user) {
-            return response()->json([
-                'user' => $user
-            ]);
-        } 
-        else {
-            return response()->json([
-                'message' => 'User Not Authenicate.'
-            ], 401);
-        }
-    }
 
     /**
      * Destroy an authenticated session.
