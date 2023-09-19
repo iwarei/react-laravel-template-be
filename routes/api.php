@@ -30,13 +30,13 @@ Route::post('/reset-password', [Auth\NewPasswordController::class, 'store'])->na
 Route::middleware('auth')->group(function () {
 
     // ユーザ情報編集
-    Route::post('user', [User\UserController::class, 'store'])->name('user.store');
-    
+    Route::resource('user', User\UserController::class)->only(['store', 'destroy']);
+
     // 認証関連 (ログイン後)
     Route::get('/verify-email/{id}/{hash}', Auth\VerifyEmailController::class)
                     ->middleware(['signed', 'throttle:6,1'])
                     ->name('verification.verify');
-    
+
     Route::post('/email/verification-notification', [Auth\EmailVerificationNotificationController::class, 'store'])
                     ->middleware('throttle:6,1')
                     ->name('verification.send');
