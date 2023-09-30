@@ -1,11 +1,3 @@
-### 環境構築
-1. `git clone https://github.com/iwarei/react-laravel-template-be.git`
-2. `cd react-laravel-template-be`
-3. `php -r "readfile('https://getcomposer.org/installer');" | php`
-4. `php composer.phar install`
-5. `php artisan sail:install`
-6. `./vendor/bin/sail up -d`
-
 ### Docker上で環境構築を行う場合 (WSL Ubuntu / Laravel sail)
 phpをインストールしたくない、phpのバージョンを変えたくないなど、既存環境を壊したくない場合に。
 PHP, Composerを含むDockerコンテナを作成し、依存関係を解決する。
@@ -20,6 +12,16 @@ PHP, Composerを含むDockerコンテナを作成し、依存関係を解決す�
     laravelsail/php82-composer:latest \
     composer install --ignore-platform-reqs
    ```
-4. `cp .env.example .env`
-5. `./vendor/bin/sail up -d`
+4. DB_DATABASEを開発するアプリ名に変更する。
+5. `cp .env.example .env`
+6. `./vendor/bin/sail up -d`
 ※シェルエイリアスの設定をすると、以後`sail up -d`で立ち上げることができるようになるので、便利。
+
+### 環境構築 (XAMPP/非推奨)
+1. `git clone https://github.com/iwarei/react-laravel-template-be.git`
+2. `cd react-laravel-template-be`
+3. `php -r "readfile('https://getcomposer.org/installer');" | php`
+4. `php composer.phar install`
+5. `php artisan key:generate`
+6. `php artisan migrate`
+
