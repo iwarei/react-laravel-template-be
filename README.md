@@ -12,10 +12,44 @@ PHP, Composerを含むDockerコンテナを作成し、依存関係を解決す�
     laravelsail/php82-composer:latest \
     composer install --ignore-platform-reqs
    ```
-4. DB_DATABASEを開発するアプリ名に変更する。
+4. `.env.example`の`DB_DATABASE`を開発するアプリ名に変更する。
 5. `cp .env.example .env`
 6. `./vendor/bin/sail up -d`
 ※シェルエイリアスの設定をすると、以後`sail up -d`で立ち上げることができるようになるので、便利。
+7. `sail artisan key:generate`
+8. `sail artisan migrate`
+
+
+※トラブルシューティング
+#### `sail artisan key genrate`でエラーが発生した場合
+1. 下記のようなエラーが発生した場合。
+``` powershell
+   Illuminate\Database\QueryException 
+
+  SQLSTATE[HY000] [2002] Connection refused 
+```
+`env`を下記のように修正。
+```
+DB_HOST=mysql
+```
+再度、`sail artisan key:generate`を実行。
+
+
+2. 下記のようなエラーが発生した場合。
+``` powershell
+  Illuminate\Database\QueryException 
+
+  SQLSTATE[HY000] [2002] php_network_getaddresses: getaddrinfo for mysql failed: Temporary failure in name resolution
+```
+基本発生しないはずだが、`.env`を下記のようになっていることを確認。
+```
+DB_USERNAME=sail
+DB_PASSWORD=password
+```
+`docker-compose down --volumes`もしくは`sail down --rmi all -v`を実行。
+その後`sail up --build`を行い、`http://localhost`にアクセスできることを確認したら`CTRL+C`でいったん中断。手順6から行う。
+
+---
 
 ### 環境構築 (XAMPP/非推奨)
 1. `git clone https://github.com/iwarei/react-laravel-template-be.git`
